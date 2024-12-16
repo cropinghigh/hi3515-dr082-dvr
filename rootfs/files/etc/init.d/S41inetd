@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# Starts the inetd daemon.
+#
+
+inetd -e

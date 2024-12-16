@@ -1,0 +1,22 @@
+#!/bin/sh
+
+/bin/mount -a
+
+mount -o remount,rw,noatime /
+
+mkdir /dev/pts
+mount -t devpts none /dev/pts
+
+mkdir /var/log
+
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+/sbin/mdev -s
+
+for initscript in /etc/init.d/S[0-9][0-9]*
+do
+	if [ -x $initscript ] ;
+	then
+		echo "[RCS]: $initscript"
+		$initscript
+	fi
+done

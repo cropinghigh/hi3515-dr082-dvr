@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if ls /sys/class/net/eth0 ; then
+    echo "Interface exists"
+else
+    echo "INTERFACE NOT FOUND: REBOOTING"
+    reboot now
+fi
+
+
+
+ip link set dev eth0 up
+
+udhcpc -b -i eth0
+
+ifconfig lo 127.0.0.1
